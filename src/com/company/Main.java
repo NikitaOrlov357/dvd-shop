@@ -8,6 +8,9 @@ import com.company.utils.date.exceptions.YearException;
 public class Main {
 
     public static void main(String[] args) throws DayException, YearException, MonthException {
-        new Date (11,19,2011);
+        Date d = new Date (12,12,2012);
+        Date b = new Date (11,11,2011);
+        System.out.println(d);
+        System.out.println(d.compareTo(b));
     }
 }
