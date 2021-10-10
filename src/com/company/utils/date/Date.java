@@ -4,7 +4,9 @@ import com.company.utils.date.exceptions.DayException;
 import com.company.utils.date.exceptions.MonthException;
 import com.company.utils.date.exceptions.YearException;
 
-public class Date implements Comparable<Date>{
+import java.io.Serializable;
+
+public class Date implements Comparable<Date>, Serializable {
     private final int day;
     private final int month;
     private final int year;

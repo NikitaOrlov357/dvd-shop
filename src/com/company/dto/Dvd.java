@@ -32,7 +32,7 @@ public class Dvd implements Serializable {
                 "3) MPAA рейтинг - " + mpaaRating + '\n' +
                 "4) режиссёра - " + nameOfDirector + '\n' +
                 "5) студия - " + studio + '\n' +
-                "6) заметки - " + note ;
+                "6) заметки - " + note  ;
     }
 
 
