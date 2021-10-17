@@ -1,14 +1,18 @@
 package com.company.service;
 
+import com.company.dao.DvdDao;
+import com.company.dao.exceptions.UnableToLoadException;
+import com.company.dao.exceptions.UnableToSaveException;
 import com.company.dto.Dvd;
 import com.company.dto.Fields;
-import com.company.utils.date.Date;
+import com.company.service.exceptions.DvdWasNotFoundException;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-public class DvdService {
-    private final ArrayList<Dvd> dvdArrayList = new ArrayList<>();
+public class DvdService  {
+    private ArrayList<Dvd> dvdArrayList = new ArrayList<>();
+    private final DvdDao dvdDao = new DvdDao();
 
     public void addDvd (Dvd dvd){
         dvdArrayList.add(dvd);
@@ -24,11 +28,48 @@ public class DvdService {
         }
     }
 
-    public void editDvd (String title, Fields fields){
-        System.out.println(fields == Fields.DATE);
+    public void editDvd (String title, Fields fields, String correctedField) throws DvdWasNotFoundException{
+        ListIterator<Dvd> iterator = dvdArrayList.listIterator();
+        Dvd foundDvd = null;
+        while (iterator.hasNext()){
+            Dvd dvd = iterator.next();
+            if (dvd.getTitle().equals(title)) {
+                foundDvd = dvd;
+                break;
+            }
+        }
+        if (foundDvd == null){
+            throw new DvdWasNotFoundException();
+        }
+
+        switch (fields) {
+            case DATE -> foundDvd.setDate(correctedField);
+            case TITLE -> foundDvd.setTitle(correctedField);
+            case NOTE -> foundDvd.setNote(correctedField);
+            case NAME_OF_DIRECTOR -> foundDvd.setNameOfDirector(correctedField);
+            case STUDIO -> foundDvd.setStudio(correctedField);
+            case MPAA_RATING -> foundDvd.setMpaaRating(Integer.parseInt(correctedField));
+        }
+    }
+
+    public Dvd getDvdByName (String title) throws DvdWasNotFoundException{
+        for (Dvd dvd : dvdArrayList) {
+            if (dvd.getTitle().equals(title)) {
+                return dvd;
+            }
+        }
+        throw new DvdWasNotFoundException();
     }
 
     public ArrayList<Dvd> getDvdArrayList() {
         return dvdArrayList;
+    }
+
+    public void saveDvdLib () throws UnableToSaveException {
+        dvdDao.save(dvdArrayList);
+    }
+
+    public void loadDvdLib () throws UnableToLoadException {
+        dvdArrayList = dvdDao.load();
     }
 }

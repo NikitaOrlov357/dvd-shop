@@ -9,16 +9,16 @@ import java.io.Serializable;
 
 public class Dvd implements Serializable {
     private String title;
-    private Date date;
-    private int mpaaRating ;
+    private String date;
+    private int mpaaRating;
     private String nameOfDirector;
     private String studio;
     private String note;
 
-    public Dvd(String title, int day, int month, int year, int mpaaRating, String nameOfDirector, String studio,
+    public Dvd(String title, String date, int mpaaRating, String nameOfDirector, String studio,
                String note) throws DayException, MonthException, YearException {
         this.title = title;
-        this.date = new Date(day, month, year);
+        this.date = date;
         this.mpaaRating = mpaaRating;
         this.nameOfDirector = nameOfDirector;
         this.studio = studio;
@@ -32,7 +32,7 @@ public class Dvd implements Serializable {
                 "3) MPAA рейтинг - " + mpaaRating + '\n' +
                 "4) режиссёра - " + nameOfDirector + '\n' +
                 "5) студия - " + studio + '\n' +
-                "6) заметки - " + note  ;
+                "6) заметки - " + note + '\n'   ;
     }
 
 
@@ -48,7 +48,7 @@ public class Dvd implements Serializable {
         return date.toString();
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

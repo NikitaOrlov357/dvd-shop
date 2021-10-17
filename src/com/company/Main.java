@@ -6,6 +6,7 @@ import com.company.dao.exceptions.UnableToSaveException;
 import com.company.dto.Dvd;
 import com.company.dto.Fields;
 import com.company.service.DvdService;
+import com.company.service.exceptions.DvdWasNotFoundException;
 import com.company.utils.date.Date;
 import com.company.utils.date.exceptions.DayException;
 import com.company.utils.date.exceptions.MonthException;
@@ -18,13 +19,13 @@ import java.util.ListIterator;
 
 public class Main {
 
-    public static void main(String[] args) throws DayException, YearException, MonthException, UnableToLoadException, UnableToSaveException {
+    public static void main(String[] args) throws DayException, YearException, MonthException, UnableToLoadException, UnableToSaveException, DvdWasNotFoundException {
 
-        Dvd dvd1 = new Dvd("один", 23,3,2011,5,"Jorj",
+        Dvd dvd1 = new Dvd("один", "23,3,2011",5,"Jorj",
                 "jorj`s","robert was there");
-        Dvd dvd2 = new Dvd("два", 23,3,2011,5,"Jorj",
+        Dvd dvd2 = new Dvd("два", "23,3,2012",5,"Jorj",
                 "jorj`s","robert was there");
-        Dvd dvd3 = new Dvd("три", 23,3,2011,5,"Jorj",
+        Dvd dvd3 = new Dvd("три", "23,3,2013",5,"Jorj",
                 "jorj`s","robert was there");
 
         DvdService dvdService = new DvdService();
@@ -32,8 +33,12 @@ public class Main {
         dvdService.addDvd(dvd2);
         dvdService.addDvd(dvd3);
 
+        //  dvdService.editDvd("два", );
+        //dvdService.saveDvdLib();
+//        dvdService.loadDvdLib();
 
-        dvdService.editDvd("два", Fields.DATE);
+        dvdService.editDvd("два", Fields.MPAA_RATING, "12");
+        System.out.println(dvdService.getDvdArrayList());
 
 //        DvdDao dvdDao = new DvdDao();
 //        dvdDao.save(dvdArrayList);
