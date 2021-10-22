@@ -18,6 +18,12 @@ public class DvdService  {
         dvdArrayList.add(dvd);
     }
 
+    public void addDvd  (String title, String date, int mpaaRating, String nameOfDirector, String studio,
+                        String note){
+        Dvd dvd = new Dvd(title, date, mpaaRating, nameOfDirector, studio, note);
+        dvdArrayList.add(dvd);
+    }
+
     public void removeDvd (String title){
         ListIterator<Dvd> iterator = dvdArrayList.listIterator();
         while (iterator.hasNext()){

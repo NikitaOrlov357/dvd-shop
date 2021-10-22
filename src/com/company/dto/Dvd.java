@@ -16,7 +16,7 @@ public class Dvd implements Serializable {
     private String note;
 
     public Dvd(String title, String date, int mpaaRating, String nameOfDirector, String studio,
-               String note) throws DayException, MonthException, YearException {
+               String note) {
         this.title = title;
         this.date = date;
         this.mpaaRating = mpaaRating;

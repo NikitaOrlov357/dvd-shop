@@ -11,6 +11,7 @@ import com.company.utils.date.Date;
 import com.company.utils.date.exceptions.DayException;
 import com.company.utils.date.exceptions.MonthException;
 import com.company.utils.date.exceptions.YearException;
+import com.company.view.View;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,24 +22,30 @@ public class Main {
 
     public static void main(String[] args) throws DayException, YearException, MonthException, UnableToLoadException, UnableToSaveException, DvdWasNotFoundException {
 
-        Dvd dvd1 = new Dvd("один", "23,3,2011",5,"Jorj",
-                "jorj`s","robert was there");
-        Dvd dvd2 = new Dvd("два", "23,3,2012",5,"Jorj",
-                "jorj`s","robert was there");
-        Dvd dvd3 = new Dvd("три", "23,3,2013",5,"Jorj",
-                "jorj`s","robert was there");
 
-        DvdService dvdService = new DvdService();
-        dvdService.addDvd(dvd1);
-        dvdService.addDvd(dvd2);
-        dvdService.addDvd(dvd3);
 
-        //  dvdService.editDvd("два", );
-        //dvdService.saveDvdLib();
-//        dvdService.loadDvdLib();
+        View.mainLoop();
 
-        dvdService.editDvd("два", Fields.MPAA_RATING, "12");
-        System.out.println(dvdService.getDvdArrayList());
+
+
+//        Dvd dvd1 = new Dvd("один", "23,3,2011",5,"Jorj",
+//                "jorj`s","robert was there");
+//        Dvd dvd2 = new Dvd("два", "23,3,2012",5,"Jorj",
+//                "jorj`s","robert was there");
+//        Dvd dvd3 = new Dvd("три", "23,3,2013",5,"Jorj",
+//                "jorj`s","robert was there");
+//
+//        DvdService dvdService = new DvdService();
+//        dvdService.addDvd(dvd1);
+//        dvdService.addDvd(dvd2);
+//        dvdService.addDvd(dvd3);
+//
+//        //  dvdService.editDvd("два", );
+//        //dvdService.saveDvdLib();
+////        dvdService.loadDvdLib();
+//
+//        dvdService.editDvd("два", Fields.MPAA_RATING, "12");
+//        System.out.println(dvdService.getDvdArrayList());
 
 //        DvdDao dvdDao = new DvdDao();
 //        dvdDao.save(dvdArrayList);
