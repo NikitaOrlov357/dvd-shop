@@ -1,6 +1,9 @@
 package com.company.view;
 
+import com.company.dto.Dvd;
+import com.company.dto.Fields;
 import com.company.service.DvdService;
+import com.company.service.exceptions.DvdWasNotFoundException;
 
 import java.util.Scanner;
 
@@ -15,16 +18,17 @@ public class View {
             cls();
             switch (choice){
                 case "1" -> printAddDvdMenu();
-                case "2" -> pass();
-                case "3" -> pass();
-                case "4" -> pass();
-                case "5" -> pass();
+                case "2" -> remove();
+                case "3" -> editDvdByName();
+                case "4" -> printDvdByName();
+                case "5" -> printAllDvd();
                 case "6" -> pass();
                 case "7" -> pass();
             }
+            System.out.print("Введите любое число >> ");
+            in.nextLine();
             cls();
         }
-
     }
 
     public static void cls(){
@@ -45,8 +49,8 @@ public class View {
                 3) Изменить DVD
                 4) Вывести DVD по названию
                 5) Вывести все DVD
-                6) Сохранить 
-                7) Загрузить 
+                6) Сохранить
+                7) Загрузить
                 ↓
                 """;
         System.out.print(menu);
@@ -66,6 +70,63 @@ public class View {
         System.out.print("Введите заметку >> ");
         String note = in.nextLine();
         dvdService.addDvd(title, date, mpaaRating, nameOfDirector, studio, note);
+    }
+
+    public static void remove (){
+        System.out.println("Введите название диска, который хотите удалить >>");
+        String title = in.nextLine();
+        dvdService.removeDvd(title);
+    }
+
+    public static void editDvdByName () {
+        System.out.print("Введите название диска, который хотите изменить >> ");
+        String title = in.nextLine();
+        try {
+            System.out.println(dvdService.getDvdByName(title) + "\n");
+        }
+        catch (DvdWasNotFoundException exception){
+            System.out.println("ДИСК НЕ НАЙДЕТ, ПОПРОБУЙТЕ СНОВА");
+            return;
+        }
+
+        System.out.print("Введите поле диска, которое хотите изменить >> ");
+        String dvdField = in.nextLine();
+        Fields field = switch (dvdField){
+            case "1" -> Fields.TITLE;
+            case "2" -> Fields.DATE;
+            case "3" -> Fields.MPAA_RATING;
+            case "4" -> Fields.NAME_OF_DIRECTOR;
+            case "5" -> Fields.STUDIO;
+            case "6" -> Fields.NOTE;
+            default -> null;
+        };
+
+        System.out.print("Введите новое значение для поля >> ");
+        String value = in.nextLine();
+        try {
+             dvdService.editDvd(title, field, value);
+        }
+        catch (DvdWasNotFoundException exception){
+            System.out.println("ДИСК НЕ НАЙДЕТ, ПОПРОБУЙТЕ СНОВА");
+        }
+    }
+
+    public static void printDvdByName (){
+        System.out.println("Введите название диска");
+        String title = in.nextLine();
+        try {
+            System.out.println(dvdService.getDvdByName(title));
+
+        }
+        catch (DvdWasNotFoundException exception){
+            System.out.println("ДИСК НЕ НАЙДЕТ, ПОПРОБУЙТЕ СНОВА");
+        }
+    }
+
+    public static void printAllDvd (){
+        for (Dvd dvd:dvdService.getDvdArrayList()) {
+            System.out.println(dvd + "---------------------------------------------------------------\n");
+        }
     }
 
 }
